@@ -52,3 +52,8 @@ D:\Users\JazzZhang\RiderProjects\ModbusTest\ModbusTest\bin\Debug\net9.0-windows\
 D:\Users\JazzZhang\RiderProjects\ModbusTest\ModbusTest\bin\Debug\net9.0-windows\System.Windows.Forms.Pictograms.dll
 D:\Users\JazzZhang\RiderProjects\ModbusTest\ModbusTest\bin\Debug\net9.0-windows\System.Windows.Forms.Ribbon35.dll
 D:\Users\JazzZhang\RiderProjects\ModbusTest\ModbusTest\bin\Debug\net9.0-windows\WindowsAPICodePack.Shell.CommonFileDialogs.Wpf.dll
+D:\Users\JazzZhang\RiderProjects\ModbusTest\ModbusTest\bin\Debug\net9.0-windows\LiveCharts.dll
+D:\Users\JazzZhang\RiderProjects\ModbusTest\ModbusTest\bin\Debug\net9.0-windows\LiveCharts.Wpf.dll
+D:\Users\JazzZhang\RiderProjects\ModbusTest\ModbusTest\bin\Debug\net9.0-windows\OxyPlot.dll
+D:\Users\JazzZhang\RiderProjects\ModbusTest\ModbusTest\bin\Debug\net9.0-windows\OxyPlot.Wpf.dll
+D:\Users\JazzZhang\RiderProjects\ModbusTest\ModbusTest\bin\Debug\net9.0-windows\OxyPlot.Wpf.Shared.dll

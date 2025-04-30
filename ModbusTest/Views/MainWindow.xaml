@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:zyy="clr-namespace:ModbusTest.Components"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         FontFamily="Microsoft YaHei" FontSize="12" FontWeight="ExtraLight"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
@@ -244,11 +245,81 @@
                                             <TextBlock Text="温度" Margin="15,3" FontSize="11" Foreground="White"/>
                                         </Border>
                                         
-                                        <zyy:Meter Grid.Row="1" Margin="5,20,5,0" />
+                                        <zyy:Meter Grid.Row="1" Margin="5,20,5,0" Value="{Binding Temperature}"/>
                                     </Grid>
                                     
                                     
                                 </Border>
+                                
+                                <!--温度数字-->
+                                
+                                <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontSize="30" Margin="0,20,0,0" 
+                                           Text="{Binding Temperature}" Foreground="White"/>
+                                
+                                <TextBlock Text="V/A" FontSize="13" Foreground="#5FFF"
+                                           Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                                           Margin="0,0,0,30"/>
+                                <!--湿度显示区-->
+                                
+                                <Border CornerRadius="5" Background="#1000" Grid.Row="2" Margin="0,0,0,5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="@" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                   Foreground="Orange" FontSize="14" Margin="10,0"/>
+                                        <TextBlock Grid.Column="1" >
+                                            <Run Text="{Binding Humidity}" FontSize="18" Foreground="#AFFF" FontWeight="Normal"/>
+                                            <Run Text="%" FontSize="11" Foreground="#7FFF"/>
+                                            
+                                        </TextBlock>
+                                        <TextBlock Text="湿度"  Grid.Column="2" Margin="10,0"  Foreground="#2FFF"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                    </Grid>
+                                </Border>
+                                
+                                <!--图表显示区-->
+                                <lvc:CartesianChart Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"
+                                                    Margin="10,0,10,10">
+                                   <lvc:CartesianChart.Series>
+                                       <lvc:LineSeries Values="{Binding TemperatureValues}"
+                                                       Fill="Transparent" Title="温度"
+                                                       Stroke="#7787E8EC" PointGeometrySize="0"/>
+                                       <lvc:LineSeries Values="{Binding HumidityValues}"
+                                                       Fill="Transparent" Title="湿度"
+                                                       Stroke="#AF90" PointGeometrySize="0"
+                                                       ScalesYAt="1"/>
+                                   </lvc:CartesianChart.Series>
+                                    
+                                    <lvc:CartesianChart.AxisY>
+                                        <lvc:Axis MinValue="-40" MaxValue="80">
+                                            <lvc:Axis.Separator>
+                                                <lvc:Separator Step="20" Stroke="#1FFF"/>
+                                            </lvc:Axis.Separator>
+                                        </lvc:Axis>
+                                        <lvc:Axis MinValue="-10" MaxValue="110" Position="RightTop">
+                                            <lvc:Axis.Separator>
+                                                <lvc:Separator Step="20" StrokeThickness="0"/>
+                                            </lvc:Axis.Separator>
+                                        </lvc:Axis>
+                                    </lvc:CartesianChart.AxisY>
+                                    
+                                    
+                                    <lvc:CartesianChart.AxisX>
+                                        <lvc:Axis LabelFormatter="{Binding XFormatter}"
+                                                  MinValue="{Binding AxisMin}" MaxValue="{Binding AxisMax}" 
+                                                  Unit="{Binding AxisUnit}">
+                                            <lvc:Axis.Separator>
+                                                <lvc:Separator Step="{Binding AxisStep}" StrokeThickness="0"/>
+                                            </lvc:Axis.Separator>
+                                        </lvc:Axis>
+                                    </lvc:CartesianChart.AxisX>
+                                    
+                                </lvc:CartesianChart>
+                                
                                 
                             </Grid>
                         </Border>
@@ -385,7 +456,7 @@
             <!--打开日志目录-->
             <TextBlock Grid.Row="8" VerticalAlignment="Top" HorizontalAlignment="Center"
                        Margin="0,5">
-                <Hyperlink>打开日志目录</Hyperlink>
+                <Hyperlink Command="{Binding OpenLogPathCommand}">打开日志目录</Hyperlink>
             </TextBlock>
             </Grid>
        
