@@ -11,6 +11,7 @@
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="1" CaptionHeight="50"></WindowChrome>
     </WindowChrome.WindowChrome>
+    
     <Window.Background>
         <RadialGradientBrush Center="0.5,0" GradientOrigin="0.5,-0.5" RadiusX="0.7" RadiusY="1.2">
             <GradientStop Color="#FF61BAFF" Offset="0"></GradientStop>
@@ -112,7 +113,11 @@
     </Window.Triggers>
    
     <Grid>
+       
         <Grid Margin="20,0">
+            <Grid.Effect>
+                <BlurEffect Radius="{Binding BlurRadius}"/>
+            </Grid.Effect>
             <Grid.RowDefinitions>
                 <RowDefinition Height="55"/>
                 <RowDefinition Height="30"/>
@@ -150,7 +155,8 @@
                               IsChecked="{Binding IsStart}"/>
                 <ToggleButton Content="日志" Style="{StaticResource SwitchButtonStyle}" 
                               IsChecked="{Binding IsLog}"/>
-                <Button Style="{StaticResource ControlButtonStyle}" Name="btnConfig">
+                <Button Style="{StaticResource ControlButtonStyle}" Name="btnConfig"
+                        Command="{Binding ConfigCommand}">
                     <StackPanel>
                         <TextBlock Text="^" HorizontalAlignment="Center"/>
                         <TextBlock Text="设置" HorizontalAlignment="Center" />
@@ -169,7 +175,7 @@
             <!--第二行信息-->
            <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal">
                <TextBlock Text="时间" FontSize="14" Foreground="Gold"/>
-               <TextBlock Text="2025年04月28日 星期一" VerticalAlignment="Center" Margin="10,0" Foreground="#8FFF"></TextBlock>
+               <TextBlock Text="{Binding CurrentDate,StringFormat={}{0:yyyy年MM月dd日 dddd},ConverterCulture=zh-CN}" VerticalAlignment="Center" Margin="10,0" Foreground="#8FFF"></TextBlock>
            </StackPanel>
             
             <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" >
@@ -177,8 +183,8 @@
                     <DropShadowEffect BlurRadius="5" Color="Gray" ShadowDepth="0" Opacity="0.3"></DropShadowEffect>
                 </StackPanel.Effect>
                 
-                <TextBlock Text="!" FontSize="14" Foreground="Red"/>
-                <TextBlock Text="AAAAAAAAAXXX" VerticalAlignment="Center" Margin="10,0" Foreground="Red"/>
+                <TextBlock Text="!" FontSize="14" Foreground="{Binding MsgColor}"/>
+                <TextBlock Text="{Binding Message}" VerticalAlignment="Center" Margin="10,0" Foreground="{Binding MsgColor}"/>
             </StackPanel>
             
             <!--第三行信息-->
@@ -236,8 +242,9 @@
                                         <Border HorizontalAlignment="Center" VerticalAlignment="Top"
                                                 Background="#BF90" CornerRadius="0,0,5,5">
                                             <TextBlock Text="温度" Margin="15,3" FontSize="11" Foreground="White"/>
-                                            
                                         </Border>
+                                        
+                                        <zyy:Meter Grid.Row="1" Margin="5,20,5,0" />
                                     </Grid>
                                     
                                     
@@ -255,6 +262,12 @@
             </ItemsControl>
             
             <!--第四行信息-->
+            <TextBlock Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"
+                       Foreground="#3FFF" FontSize="11">
+                <Run Text="by zyy"/>
+                <Run Text=" "/>
+                <Run Text="{Binding CurrentDate,StringFormat={}{0:yyyy}}"/>
+            </TextBlock>
             
             
         </Grid>
@@ -285,7 +298,7 @@
             
             <Button Style="{StaticResource ControlButtonStyle}" Width="33" Height="28"
                     VerticalAlignment="Center" HorizontalAlignment="Left" Background="Transparent"
-                    Name="btnConfigClose">
+                    Name="btnConfigClose" Command="{Binding ConfigCloseCommand}">
                 <Path Data="M0 5,10 5M4 0 ,10 5,4 10" Stroke="Gray" StrokeThickness="1"/>
             </Button>
             <!--串口名称-->
@@ -296,7 +309,8 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="串口名称" VerticalAlignment="Center"/>
                 <ComboBox Grid.Column="1" 
-                          VerticalAlignment="Center" Height="30"/>
+                          VerticalAlignment="Center" Height="30"
+                          ItemsSource="{Binding PortNameList}"/>
                 
             </Grid>
             <!--波特率-->
@@ -306,8 +320,9 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="波特率" VerticalAlignment="Center"/>
-                <ComboBox Grid.Column="1" 
-                          VerticalAlignment="Center" Height="30"/>
+                <ComboBox Grid.Column="1" VerticalAlignment="Center" Height="30"
+                          SelectedValue="{Binding BaudRate}"
+                          ItemsSource="{Binding BaudRateList}"/>
             </Grid>
             
             <Grid Grid.Row="3" Margin="10,0">
@@ -356,10 +371,12 @@
                             <ColumnDefinition Width="30"/>
                         </Grid.ColumnDefinitions>
                         <TextBox BorderThickness="0" Background="Transparent"
-                                 VerticalAlignment="Center"/>
+                                 VerticalAlignment="Center" Text="{Binding LogPath}"/>
                         <Border Width="1" HorizontalAlignment="Right" Background="#EEE" Margin="0,4"/>
                         <Button Content="..." Grid.Column="1" Background="Transparent"
-                                Style="{StaticResource ControlButtonStyle}" FontSize="18" Margin="2" Width="26" Foreground="Gray"/>
+                                Style="{StaticResource ControlButtonStyle}" FontSize="18" 
+                                Margin="2" Width="26" Foreground="Gray"
+                                Command="{Binding LogPathSelectCommand}"/>
                     </Grid>
                     
                 </Border>

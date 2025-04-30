@@ -10,7 +10,6 @@
 
     <ItemGroup>
       <Folder Include="Assets\Styles\" />
-      <Folder Include="Base\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -19,6 +18,21 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="BetterFolderBrowser" Version="1.2.0" />
+      <PackageReference Include="FolderBrowserDialogEx" Version="1.0.0" />
+      <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="System.IO.Ports" Version="10.0.0-preview.3.25171.5" />
+      <PackageReference Include="System.Reactive.Windows.Forms" Version="6.0.1" />
+      <PackageReference Include="System.Windows.Forms.DataVisualization" Version="1.0.0-prerelease.20110.1" />
+      <PackageReference Include="System.Windows.Forms.Pictograms" Version="1.3.22" />
+      <PackageReference Include="System.Windows.Forms.Ribbon35" Version="3.5.8" />
+      <PackageReference Include="WindowsAPICodePack.Shell.CommonFileDialogs.Wpf" Version="1.1.5.1" />
     </ItemGroup>
 
 </Project>
